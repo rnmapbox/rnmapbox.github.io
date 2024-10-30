@@ -9,7 +9,7 @@
 
 
 <link rel="search" type="application/opensearchdescription+xml" title="@rnmapbox/maps" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.67991dfd.css">
-<script src="/assets/js/runtime~main.756c79be.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.802b8d27.js" defer="defer"></script>
 <script src="/assets/js/main.47a460e9.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -38,6 +38,10 @@ export default function RasterSourceExample() {
       &lt;RasterSource
         id=&quot;stamen-watercolor&quot;
         tileSize={256}
+        sourceBounds={[
+          -74.01010105570786, 40.7096750598196, -74.00028742807824,
+          40.71670107507063,
+        ]}
         tileUrlTemplates={[&#x27;https://tile.openstreetmap.org/{z}/{x}/{y}.png&#x27;]}
       /&gt;
       &lt;RasterLayer
