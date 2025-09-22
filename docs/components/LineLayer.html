@@ -9,7 +9,7 @@
 
 
 <link rel="search" type="application/opensearchdescription+xml" title="@rnmapbox/maps" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.b2e7b35b.css">
-<script src="/assets/js/runtime~main.758331d1.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.1b306f0f.js" defer="defer"></script>
 <script src="/assets/js/main.13b19c6e.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -163,7 +163,8 @@ Inferred from parent source only if the layer is a direct child to it.</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="supported-values-1">Supported Values<a href="#supported-values-1" class="hash-link" aria-label="Direct link to Supported Values" title="Direct link to Supported Values">​</a></h4>
 <p><strong>bevel</strong> - A join with a squared-off end which is drawn beyond the endpoint of the line at a distance of one-half of the line&#x27;s width.<br>
 <strong>round</strong> - A join with a rounded end which is drawn beyond the endpoint of the line at a radius of one-half of the line&#x27;s width and centered on the endpoint of the line.<br>
-<strong>miter</strong> - A join with a sharp, angled corner which is drawn with the outer sides beyond the endpoint of the path until they meet.<br></p>
+<strong>miter</strong> - A join with a sharp, angled corner which is drawn with the outer sides beyond the endpoint of the path until they meet.<br>
+<strong>none</strong> - Line segments are not joined together, each one creates a separate line. Useful in combination with line-pattern. Line-cap property is not respected. Can&#x27;t be used with data-driven styling.<br></p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="supported-style-functions">Supported Style Functions<a href="#supported-style-functions" class="hash-link" aria-label="Direct link to Supported Style Functions" title="Direct link to Supported Style Functions">​</a></h4>
 <p><code>camera</code></p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="expression-1">Expression<a href="#expression-1" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression">​</a></h4>
@@ -328,7 +329,7 @@ Inferred from parent source only if the layer is a direct child to it.</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="supported-style-functions-1">Supported Style Functions<a href="#supported-style-functions-1" class="hash-link" aria-label="Direct link to Supported Style Functions" title="Direct link to Supported Style Functions">​</a></h4>
 <p><code>camera</code></p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="expression-10">Expression<a href="#expression-10" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression">​</a></h4>
-<p>Parameters: <code>zoom, feature, feature-state, measure-light</code></p>
+<p>Parameters: <code>zoom, feature, feature-state, measure-light, line-progress</code></p>
 <hr>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="linewidthtransition">lineWidthTransition<a href="#linewidthtransition" class="hash-link" aria-label="Direct link to lineWidthTransition" title="Direct link to lineWidthTransition">​</a></h3>
 <p>Name: <code>lineWidthTransition</code></p>
@@ -462,7 +463,7 @@ Inferred from parent source only if the layer is a direct child to it.</p>
 <p>Name: <code>lineTrimOffset</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-line-line-trim-offset" target="_blank" rel="noopener noreferrer">line-trim-offset</a></p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="description-24">Description<a href="#description-24" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description">​</a></h4>
-<p>The line part between [trimStart, trimEnd] will be marked as transparent to make a route vanishing effect. The line trimOff offset is based on the whole line range [0.0, 1.0].</p>
+<p>The line part between [trimStart, trimEnd] will be painted using <code>lineTrimColor,</code> which is transparent by default to produce a route vanishing effect. The line trimOff offset is based on the whole line range [0.0, 1.0].</p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="type-24">Type<a href="#type-24" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type">​</a></h4>
 <p><code>array&lt;number&gt;</code></p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="default-value-20">Default Value<a href="#default-value-20" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value">​</a></h4>
