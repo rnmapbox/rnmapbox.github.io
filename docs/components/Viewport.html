@@ -10,8 +10,8 @@
 
 
 <link rel="search" type="application/opensearchdescription+xml" title="@rnmapbox/maps" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.a5aa6d04.css">
-<script src="/assets/js/runtime~main.fd71490a.js" defer="defer"></script>
-<script src="/assets/js/main.00e6afc5.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.25cde402.js" defer="defer"></script>
+<script src="/assets/js/main.c69167be.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -29,10 +29,32 @@
 <a href="https://docs.mapbox.com/ios/maps/api/$%7BIOS_SDK_VERSION%7D/Viewport.html#/s:10MapboxMaps8ViewportC" target="_blank" rel="noopener noreferrer" class="">ios</a></p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="props">props<a href="#props" class="hash-link" aria-label="Direct link to props" title="Direct link to props" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="transitionstoidleuponuserinteraction">transitionsToIdleUponUserInteraction<a href="#transitionstoidleuponuserinteraction" class="hash-link" aria-label="Direct link to transitionsToIdleUponUserInteraction" title="Direct link to transitionsToIdleUponUserInteraction" translate="no">​</a></h3>
-<div class="language-tsx codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#FFFFFF;--prism-background-color:#282C34"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-tsx codeBlock_bY9V thin-scrollbar" style="color:#FFFFFF;background-color:#282C34"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#FFFFFF"><span class="token builtin" style="color:#2aa198">boolean</span><br></div></code></pre></div></div>
+<div class="language-tsx codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#FFFFFF;--prism-background-color:#282C34"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-tsx codeBlock_bY9V thin-scrollbar" style="color:#FFFFFF;background-color:#282C34"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#FFFFFF"><span class="token operator" style="color:#fc929e">|</span><span class="token plain"> </span><span class="token builtin" style="color:#2aa198">boolean</span><span class="token plain"></span><br></div><div class="token-line" style="color:#FFFFFF"><span class="token plain"></span><span class="token operator" style="color:#fc929e">|</span><span class="token plain"> </span><span class="token punctuation" style="color:#657b83">{</span><span class="token plain"></span><br></div><div class="token-line" style="color:#FFFFFF"><span class="token plain">    pan</span><span class="token operator" style="color:#fc929e">?</span><span class="token operator" style="color:#fc929e">:</span><span class="token plain"> </span><span class="token builtin" style="color:#2aa198">boolean</span><span class="token punctuation" style="color:#657b83">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#FFFFFF"><span class="token plain">    pinch</span><span class="token operator" style="color:#fc929e">?</span><span class="token operator" style="color:#fc929e">:</span><span class="token plain"> </span><span class="token builtin" style="color:#2aa198">boolean</span><span class="token punctuation" style="color:#657b83">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#FFFFFF"><span class="token plain">    doubleTap</span><span class="token operator" style="color:#fc929e">?</span><span class="token operator" style="color:#fc929e">:</span><span class="token plain"> </span><span class="token builtin" style="color:#2aa198">boolean</span><span class="token punctuation" style="color:#657b83">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#FFFFFF"><span class="token plain">    rotate</span><span class="token operator" style="color:#fc929e">?</span><span class="token operator" style="color:#fc929e">:</span><span class="token plain"> </span><span class="token builtin" style="color:#2aa198">boolean</span><span class="token punctuation" style="color:#657b83">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#FFFFFF"><span class="token plain">    pitch</span><span class="token operator" style="color:#fc929e">?</span><span class="token operator" style="color:#fc929e">:</span><span class="token plain"> </span><span class="token builtin" style="color:#2aa198">boolean</span><span class="token punctuation" style="color:#657b83">;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#FFFFFF"><span class="token plain">  </span><span class="token punctuation" style="color:#657b83">}</span><br></div></code></pre></div></div>
 <p>Indicates whether the Viewport should idle when the MapView receives touch input.</p>
-<p>Set this property to false to enable building custom ViewportStates that can work simultaneously with certain types of gestures.</p>
+<ul>
+<li class=""><code>true</code>: any gesture idles the viewport.</li>
+<li class=""><code>false</code>: no gesture idles it. Set this to build custom ViewportStates that can work simultaneously with certain types of gestures.</li>
+<li class="">an object, e.g. <code>{ pan: true, pinch: false, doubleTap: false }</code>: only the gestures set to <code>true</code> idle the viewport,
+the others leave the current state running. Omitted keys default to <code>true</code>.<!-- -->
+<ul>
+<li class=""><code>pan</code>: one-finger pan</li>
+<li class=""><code>pinch</code>: pinch, and quick zoom (double-tap and drag)</li>
+<li class=""><code>doubleTap</code>: double-tap to zoom in, two-finger tap to zoom out</li>
+<li class=""><code>rotate</code>: two-finger rotate</li>
+<li class=""><code>pitch</code>: two-finger vertical drag (shove on Android)</li>
+</ul>
+</li>
+</ul>
+<p>With the object form, while in a followPuck state:</p>
+<ul>
+<li class="">once the user zooms, rotates or pitches with a gesture that doesn&#x27;t idle, the state stops applying its zoom,
+bearing or pitch, so the user&#x27;s value sticks. The next transition to a followPuck state applies them again.</li>
+<li class="">if <code>pinch</code> or <code>doubleTap</code> doesn&#x27;t idle, zoom gestures zoom around the puck, and a two-finger drag doesn&#x27;t pan the map.
+This temporarily sets the gesture focal point and turns off <code>gestureSettings.pinchPanEnabled</code>,
+unless the app has set them.</li>
+</ul>
 <p>Defaults to true.</p>
+<p><a class="" href="/docs/examples/Camera/ViewportGestures">Viewport Gestures</a></p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="onstatuschanged">onStatusChanged<a href="#onstatuschanged" class="hash-link" aria-label="Direct link to onStatusChanged" title="Direct link to onStatusChanged" translate="no">​</a></h3>
 <div class="language-tsx codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#FFFFFF;--prism-background-color:#282C34"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-tsx codeBlock_bY9V thin-scrollbar" style="color:#FFFFFF;background-color:#282C34"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#FFFFFF"><span class="token plain">func</span><br></div></code></pre></div></div>
 <p>Subscribes to status changes, will be called when the status changes.</p>
@@ -42,7 +64,7 @@ This behavior is necessary to allow observers to trigger further transitions whi
 delivery of status changed notifications.
 <em>signature:</em><code>(event:{from: union, to: union, reason: union}) =&amp;gt; void</code></p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="methods">methods<a href="#methods" class="hash-link" aria-label="Direct link to methods" title="Direct link to methods" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="getstate">getState()<a href="#getstate" class="hash-link" aria-label="Direct link to getState()" title="Direct link to getState()" translate="no"> ​</a></h3>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="getstate">getState()<a href="#getstate" class="hash-link" aria-label="Direct link to getState()" title="Direct link to getState()" translate="no">​</a></h3>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="arguments">arguments<a href="#arguments" class="hash-link" aria-label="Direct link to arguments" title="Direct link to arguments" translate="no">​</a></h4>
 <table><thead><tr><th>Name</th><th style="text-align:center">Type</th><th style="text-align:center">Required</th><th style="text-align:center">Description</th></tr></thead></table>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="idle">idle()<a href="#idle" class="hash-link" aria-label="Direct link to idle()" title="Direct link to idle()" translate="no">​</a></h3>
