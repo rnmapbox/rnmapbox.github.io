@@ -11,8 +11,8 @@
 
 <link rel="search" type="application/opensearchdescription+xml" title="@rnmapbox/maps" href="/opensearch.xml">
 <meta name="google-site-verification" content="4d5BqkXr-_mwLPx8aDAONR6uA0d8v6oSPaVFPEn8KK0"><link rel="stylesheet" href="/assets/css/styles.a5aa6d04.css">
-<script src="/assets/js/runtime~main.27b245ff.js" defer="defer"></script>
-<script src="/assets/js/main.3cf36837.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.30e51ddb.js" defer="defer"></script>
+<script src="/assets/js/main.62cadd93.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -83,6 +83,10 @@ Customizable style attributes</p>
 </li>
 <li class="">
 <a href="#rastercolorrange">rasterColorRange</a>
+<br>
+</li>
+<li class="">
+<a href="#rastercolorscale">rasterColorScale</a>
 <br>
 </li>
 <li class="">
@@ -173,7 +177,7 @@ Customizable style attributes</p>
 <p>Name: <code>rasterColor</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-color" target="_blank" rel="noopener noreferrer" class="">raster-color</a></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-3">Description<a href="#description-3" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
-<p>Defines a color map by which to colorize a raster layer, parameterized by the <code>[&quot;rasterValue&quot;]</code> expression and evaluated at 256 uniformly spaced steps over the range specified by <code>rasterColorRange</code>.</p>
+<p>Defines the color ramp used to colorize a raster layer, parameterized by the <code>[&quot;rasterValue&quot;]</code> expression and evaluated over the range specified by <code>rasterColorRange</code>. Raster values are spaced evenly across the range by default.</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-3">Type<a href="#type-3" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>color</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-2">Expression<a href="#expression-2" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
@@ -183,7 +187,7 @@ Customizable style attributes</p>
 <p>Name: <code>rasterColorMix</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-color-mix" target="_blank" rel="noopener noreferrer" class="">raster-color-mix</a></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-4">Description<a href="#description-4" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
-<p>When <code>rasterColor</code> is active, specifies the combination of source RGB channels used to compute the raster value. Computed using the equation <code>mix.r * src.r + mix.g * src.g + mix.b * src.b + mix.a</code>. The first three components specify the mix of source red, green, and blue channels, respectively. The fourth component serves as a constant offset and is <em>not</em> multipled by source alpha. Source alpha is instead carried through and applied as opacity to the colorized result. Default value corresponds to RGB luminosity.</p>
+<p>When <code>rasterColor</code> is active, specifies how the raster value is computed from a non<code>rasterarray</code> source&#x27;s channels, using the equation <code>mix.r * src.r + mix.g * src.g + mix.b * src.b + mix.a</code>. The first three components weight the source&#x27;s red, green, and blue channels; the fourth is a constant offset and is not multiplied by source alpha. Source alpha is carried through and applied as opacity to the colorized result. The default corresponds to RGB luminosity. <code>rasterarray</code> sources ignore this property, as their raster value is decoded directly from the source data.</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-4">Type<a href="#type-4" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>array&lt;number&gt;</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-3">Default Value<a href="#default-value-3" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
@@ -208,7 +212,7 @@ Customizable style attributes</p>
 <p>Name: <code>rasterColorRange</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-color-range" target="_blank" rel="noopener noreferrer" class="">raster-color-range</a></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-6">Description<a href="#description-6" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
-<p>When <code>rasterColor</code> is active, specifies the range over which <code>rasterColor</code> is tabulated. Units correspond to the computed raster value via <code>rasterColorMix</code>. For <code>rasterarray</code> sources, if <code>rasterColorRange</code> is unspecified, the source&#x27;s stated data range is used.</p>
+<p>When <code>rasterColor</code> is active, specifies the range of raster values mapped onto the color ramp, from the start of the ramp (low bound) to its end (high bound). For <code>rasterarray</code> sources the raster value is the decoded source data in the source&#x27;s own units, and the source&#x27;s stated data range is used when this property is unspecified. For other raster sources the raster value is computed from the source&#x27;s channels via <code>rasterColorMix</code>. Defaults to <code>[0, 1]</code> when no range is otherwise available.</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-6">Type<a href="#type-6" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>array&lt;number&gt;</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="requires-1">Requires<a href="#requires-1" class="hash-link" aria-label="Direct link to Requires" title="Direct link to Requires" translate="no">​</a></h4>
@@ -227,230 +231,249 @@ Customizable style attributes</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-5">Default Value<a href="#default-value-5" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>{duration: 300, delay: 0}</code></p>
 <hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rastercolorscale">rasterColorScale<a href="#rastercolorscale" class="hash-link" aria-label="Direct link to rasterColorScale" title="Direct link to rasterColorScale" translate="no">​</a></h3>
+<p>Name: <code>rasterColorScale</code></p>
+<p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-color-scale" target="_blank" rel="noopener noreferrer" class="">raster-color-scale</a></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-8">Description<a href="#description-8" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<p>When <code>rasterColor</code> is active, specifies how raster values are distributed across the color ramp over the range specified by <code>rasterColorRange</code>.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-8">Type<a href="#type-8" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<p><code>enum</code></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-6">Default Value<a href="#default-value-6" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<p><code>linear</code></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="supported-values-1">Supported Values<a href="#supported-values-1" class="hash-link" aria-label="Direct link to Supported Values" title="Direct link to Supported Values" translate="no">​</a></h4>
+<p><strong>linear</strong> - Raster values are spaced evenly across the color ramp.<br>
+<strong>log</strong> - Raster values are spaced logarithmically, giving more of the color ramp to smaller values. Useful for data concentrated near the low end of a wide range.<br></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="requires-2">Requires<a href="#requires-2" class="hash-link" aria-label="Direct link to Requires" title="Direct link to Requires" translate="no">​</a></h4>
+<p><code>rasterColor</code></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-5">Expression<a href="#expression-5" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<p>Parameters: ``</p>
+<hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterhuerotate">rasterHueRotate<a href="#rasterhuerotate" class="hash-link" aria-label="Direct link to rasterHueRotate" title="Direct link to rasterHueRotate" translate="no">​</a></h3>
 <p>Name: <code>rasterHueRotate</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-hue-rotate" target="_blank" rel="noopener noreferrer" class="">raster-hue-rotate</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-8">Description<a href="#description-8" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-9">Description<a href="#description-9" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>Rotates hues around the color wheel.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-8">Type<a href="#type-8" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-9">Type<a href="#type-9" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>number</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-6">Default Value<a href="#default-value-6" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-7">Default Value<a href="#default-value-7" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>0</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-3">Units<a href="#units-3" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>degrees</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-5">Expression<a href="#expression-5" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-6">Expression<a href="#expression-6" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
 <p>Parameters: <code>zoom</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterhuerotatetransition">rasterHueRotateTransition<a href="#rasterhuerotatetransition" class="hash-link" aria-label="Direct link to rasterHueRotateTransition" title="Direct link to rasterHueRotateTransition" translate="no">​</a></h3>
 <p>Name: <code>rasterHueRotateTransition</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-9">Description<a href="#description-9" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-10">Description<a href="#description-10" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>The transition affecting any changes to this layer’s rasterHueRotate property.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-9">Type<a href="#type-9" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-10">Type<a href="#type-10" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>{ duration, delay }</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-4">Units<a href="#units-4" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>milliseconds</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-7">Default Value<a href="#default-value-7" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-8">Default Value<a href="#default-value-8" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>{duration: 300, delay: 0}</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterbrightnessmin">rasterBrightnessMin<a href="#rasterbrightnessmin" class="hash-link" aria-label="Direct link to rasterBrightnessMin" title="Direct link to rasterBrightnessMin" translate="no">​</a></h3>
 <p>Name: <code>rasterBrightnessMin</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-brightness-min" target="_blank" rel="noopener noreferrer" class="">raster-brightness-min</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-10">Description<a href="#description-10" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-11">Description<a href="#description-11" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>Increase or reduce the brightness of the image. The value is the minimum brightness.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-10">Type<a href="#type-10" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-11">Type<a href="#type-11" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>number</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-8">Default Value<a href="#default-value-8" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-9">Default Value<a href="#default-value-9" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>0</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="minimum-1">Minimum<a href="#minimum-1" class="hash-link" aria-label="Direct link to Minimum" title="Direct link to Minimum" translate="no">​</a></h4>
 <p><code>0</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="maximum-1">Maximum<a href="#maximum-1" class="hash-link" aria-label="Direct link to Maximum" title="Direct link to Maximum" translate="no">​</a></h4>
 <p><code>1</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-6">Expression<a href="#expression-6" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-7">Expression<a href="#expression-7" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
 <p>Parameters: <code>zoom</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterbrightnessmintransition">rasterBrightnessMinTransition<a href="#rasterbrightnessmintransition" class="hash-link" aria-label="Direct link to rasterBrightnessMinTransition" title="Direct link to rasterBrightnessMinTransition" translate="no">​</a></h3>
 <p>Name: <code>rasterBrightnessMinTransition</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-11">Description<a href="#description-11" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-12">Description<a href="#description-12" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>The transition affecting any changes to this layer’s rasterBrightnessMin property.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-11">Type<a href="#type-11" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-12">Type<a href="#type-12" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>{ duration, delay }</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-5">Units<a href="#units-5" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>milliseconds</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-9">Default Value<a href="#default-value-9" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-10">Default Value<a href="#default-value-10" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>{duration: 300, delay: 0}</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterbrightnessmax">rasterBrightnessMax<a href="#rasterbrightnessmax" class="hash-link" aria-label="Direct link to rasterBrightnessMax" title="Direct link to rasterBrightnessMax" translate="no">​</a></h3>
 <p>Name: <code>rasterBrightnessMax</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-brightness-max" target="_blank" rel="noopener noreferrer" class="">raster-brightness-max</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-12">Description<a href="#description-12" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-13">Description<a href="#description-13" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>Increase or reduce the brightness of the image. The value is the maximum brightness.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-12">Type<a href="#type-12" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-13">Type<a href="#type-13" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>number</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-10">Default Value<a href="#default-value-10" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-11">Default Value<a href="#default-value-11" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>1</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="minimum-2">Minimum<a href="#minimum-2" class="hash-link" aria-label="Direct link to Minimum" title="Direct link to Minimum" translate="no">​</a></h4>
 <p><code>0</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="maximum-2">Maximum<a href="#maximum-2" class="hash-link" aria-label="Direct link to Maximum" title="Direct link to Maximum" translate="no">​</a></h4>
 <p><code>1</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-7">Expression<a href="#expression-7" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-8">Expression<a href="#expression-8" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
 <p>Parameters: <code>zoom</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterbrightnessmaxtransition">rasterBrightnessMaxTransition<a href="#rasterbrightnessmaxtransition" class="hash-link" aria-label="Direct link to rasterBrightnessMaxTransition" title="Direct link to rasterBrightnessMaxTransition" translate="no">​</a></h3>
 <p>Name: <code>rasterBrightnessMaxTransition</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-13">Description<a href="#description-13" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-14">Description<a href="#description-14" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>The transition affecting any changes to this layer’s rasterBrightnessMax property.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-13">Type<a href="#type-13" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-14">Type<a href="#type-14" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>{ duration, delay }</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-6">Units<a href="#units-6" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>milliseconds</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-11">Default Value<a href="#default-value-11" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-12">Default Value<a href="#default-value-12" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>{duration: 300, delay: 0}</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rastersaturation">rasterSaturation<a href="#rastersaturation" class="hash-link" aria-label="Direct link to rasterSaturation" title="Direct link to rasterSaturation" translate="no">​</a></h3>
 <p>Name: <code>rasterSaturation</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-saturation" target="_blank" rel="noopener noreferrer" class="">raster-saturation</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-14">Description<a href="#description-14" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-15">Description<a href="#description-15" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>Increase or reduce the saturation of the image.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-14">Type<a href="#type-14" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-15">Type<a href="#type-15" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>number</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-12">Default Value<a href="#default-value-12" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-13">Default Value<a href="#default-value-13" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>0</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="minimum-3">Minimum<a href="#minimum-3" class="hash-link" aria-label="Direct link to Minimum" title="Direct link to Minimum" translate="no">​</a></h4>
 <p><code>-1</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="maximum-3">Maximum<a href="#maximum-3" class="hash-link" aria-label="Direct link to Maximum" title="Direct link to Maximum" translate="no">​</a></h4>
 <p><code>1</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-8">Expression<a href="#expression-8" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-9">Expression<a href="#expression-9" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
 <p>Parameters: <code>zoom</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rastersaturationtransition">rasterSaturationTransition<a href="#rastersaturationtransition" class="hash-link" aria-label="Direct link to rasterSaturationTransition" title="Direct link to rasterSaturationTransition" translate="no">​</a></h3>
 <p>Name: <code>rasterSaturationTransition</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-15">Description<a href="#description-15" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-16">Description<a href="#description-16" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>The transition affecting any changes to this layer’s rasterSaturation property.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-15">Type<a href="#type-15" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-16">Type<a href="#type-16" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>{ duration, delay }</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-7">Units<a href="#units-7" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>milliseconds</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-13">Default Value<a href="#default-value-13" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-14">Default Value<a href="#default-value-14" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>{duration: 300, delay: 0}</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rastercontrast">rasterContrast<a href="#rastercontrast" class="hash-link" aria-label="Direct link to rasterContrast" title="Direct link to rasterContrast" translate="no">​</a></h3>
 <p>Name: <code>rasterContrast</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-contrast" target="_blank" rel="noopener noreferrer" class="">raster-contrast</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-16">Description<a href="#description-16" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-17">Description<a href="#description-17" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>Increase or reduce the contrast of the image.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-16">Type<a href="#type-16" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-17">Type<a href="#type-17" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>number</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-14">Default Value<a href="#default-value-14" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-15">Default Value<a href="#default-value-15" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>0</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="minimum-4">Minimum<a href="#minimum-4" class="hash-link" aria-label="Direct link to Minimum" title="Direct link to Minimum" translate="no">​</a></h4>
 <p><code>-1</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="maximum-4">Maximum<a href="#maximum-4" class="hash-link" aria-label="Direct link to Maximum" title="Direct link to Maximum" translate="no">​</a></h4>
 <p><code>1</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-9">Expression<a href="#expression-9" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-10">Expression<a href="#expression-10" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
 <p>Parameters: <code>zoom</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rastercontrasttransition">rasterContrastTransition<a href="#rastercontrasttransition" class="hash-link" aria-label="Direct link to rasterContrastTransition" title="Direct link to rasterContrastTransition" translate="no">​</a></h3>
 <p>Name: <code>rasterContrastTransition</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-17">Description<a href="#description-17" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-18">Description<a href="#description-18" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>The transition affecting any changes to this layer’s rasterContrast property.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-17">Type<a href="#type-17" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-18">Type<a href="#type-18" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>{ duration, delay }</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-8">Units<a href="#units-8" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>milliseconds</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-15">Default Value<a href="#default-value-15" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-16">Default Value<a href="#default-value-16" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>{duration: 300, delay: 0}</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterresampling">rasterResampling<a href="#rasterresampling" class="hash-link" aria-label="Direct link to rasterResampling" title="Direct link to rasterResampling" translate="no">​</a></h3>
 <p>Name: <code>rasterResampling</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-resampling" target="_blank" rel="noopener noreferrer" class="">raster-resampling</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-18">Description<a href="#description-18" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-19">Description<a href="#description-19" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>The resampling/interpolation method to use for overscaling, also known as texture magnification filter</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-18">Type<a href="#type-18" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-19">Type<a href="#type-19" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>enum</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-16">Default Value<a href="#default-value-16" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-17">Default Value<a href="#default-value-17" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>linear</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="supported-values-1">Supported Values<a href="#supported-values-1" class="hash-link" aria-label="Direct link to Supported Values" title="Direct link to Supported Values" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="supported-values-2">Supported Values<a href="#supported-values-2" class="hash-link" aria-label="Direct link to Supported Values" title="Direct link to Supported Values" translate="no">​</a></h4>
 <p><strong>linear</strong> - (Bi)linear filtering interpolates pixel values using the weighted average of the four closest original source pixels creating a smooth but blurry look when overscaled<br>
 <strong>nearest</strong> - Nearest neighbor filtering interpolates pixel values using the nearest original source pixel creating a sharp but pixelated look when overscaled<br></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-10">Expression<a href="#expression-10" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-11">Expression<a href="#expression-11" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
 <p>Parameters: <code>zoom</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterfadeduration">rasterFadeDuration<a href="#rasterfadeduration" class="hash-link" aria-label="Direct link to rasterFadeDuration" title="Direct link to rasterFadeDuration" translate="no">​</a></h3>
 <p>Name: <code>rasterFadeDuration</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-fade-duration" target="_blank" rel="noopener noreferrer" class="">raster-fade-duration</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-19">Description<a href="#description-19" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-20">Description<a href="#description-20" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>Fade duration when a new tile is added.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-19">Type<a href="#type-19" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-20">Type<a href="#type-20" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>number</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-17">Default Value<a href="#default-value-17" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-18">Default Value<a href="#default-value-18" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>300</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-9">Units<a href="#units-9" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>milliseconds</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="minimum-5">Minimum<a href="#minimum-5" class="hash-link" aria-label="Direct link to Minimum" title="Direct link to Minimum" translate="no">​</a></h4>
 <p><code>0</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-11">Expression<a href="#expression-11" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-12">Expression<a href="#expression-12" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
 <p>Parameters: <code>zoom</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasteremissivestrength">rasterEmissiveStrength<a href="#rasteremissivestrength" class="hash-link" aria-label="Direct link to rasterEmissiveStrength" title="Direct link to rasterEmissiveStrength" translate="no">​</a></h3>
 <p>Name: <code>rasterEmissiveStrength</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-emissive-strength" target="_blank" rel="noopener noreferrer" class="">raster-emissive-strength</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-20">Description<a href="#description-20" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-21">Description<a href="#description-21" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>Controls the intensity of light emitted on the source features.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-20">Type<a href="#type-20" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-21">Type<a href="#type-21" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>number</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-18">Default Value<a href="#default-value-18" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-19">Default Value<a href="#default-value-19" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>0</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-10">Units<a href="#units-10" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>intensity</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="minimum-6">Minimum<a href="#minimum-6" class="hash-link" aria-label="Direct link to Minimum" title="Direct link to Minimum" translate="no">​</a></h4>
 <p><code>0</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="requires-2">Requires<a href="#requires-2" class="hash-link" aria-label="Direct link to Requires" title="Direct link to Requires" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="requires-3">Requires<a href="#requires-3" class="hash-link" aria-label="Direct link to Requires" title="Direct link to Requires" translate="no">​</a></h4>
 <p><code>lights</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-12">Expression<a href="#expression-12" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-13">Expression<a href="#expression-13" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
 <p>Parameters: <code>zoom, measure-light</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasteremissivestrengthtransition">rasterEmissiveStrengthTransition<a href="#rasteremissivestrengthtransition" class="hash-link" aria-label="Direct link to rasterEmissiveStrengthTransition" title="Direct link to rasterEmissiveStrengthTransition" translate="no">​</a></h3>
 <p>Name: <code>rasterEmissiveStrengthTransition</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-21">Description<a href="#description-21" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-22">Description<a href="#description-22" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>The transition affecting any changes to this layer’s rasterEmissiveStrength property.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-21">Type<a href="#type-21" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-22">Type<a href="#type-22" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>{ duration, delay }</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-11">Units<a href="#units-11" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>milliseconds</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-19">Default Value<a href="#default-value-19" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-20">Default Value<a href="#default-value-20" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>{duration: 300, delay: 0}</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterarrayband">rasterArrayBand<a href="#rasterarrayband" class="hash-link" aria-label="Direct link to rasterArrayBand" title="Direct link to rasterArrayBand" translate="no">​</a></h3>
 <p>Name: <code>rasterArrayBand</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-array-band" target="_blank" rel="noopener noreferrer" class="">raster-array-band</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-22">Description<a href="#description-22" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-23">Description<a href="#description-23" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>Displayed band of raster array source layer. Defaults to the first band if not set.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-22">Type<a href="#type-22" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-23">Type<a href="#type-23" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>string</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterelevation">rasterElevation<a href="#rasterelevation" class="hash-link" aria-label="Direct link to rasterElevation" title="Direct link to rasterElevation" translate="no">​</a></h3>
 <p>Name: <code>rasterElevation</code></p>
 <p>Mapbox spec: <a href="https://docs.mapbox.com/style-spec/reference/layers/#paint-raster-raster-elevation" target="_blank" rel="noopener noreferrer" class="">raster-elevation</a></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-23">Description<a href="#description-23" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
-<p>Defines an uniform elevation from the base specified in rasterElevationReference, in meters.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-23">Type<a href="#type-23" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-24">Description<a href="#description-24" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<p>Defines an uniform elevation from the base specified in rasterElevationReference.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-24">Type<a href="#type-24" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>number</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-20">Default Value<a href="#default-value-20" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-21">Default Value<a href="#default-value-21" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
 <p><code>0</code></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-12">Units<a href="#units-12" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
+<p><code>meters</code></p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="minimum-7">Minimum<a href="#minimum-7" class="hash-link" aria-label="Direct link to Minimum" title="Direct link to Minimum" translate="no">​</a></h4>
 <p><code>0</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-13">Expression<a href="#expression-13" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="expression-14">Expression<a href="#expression-14" class="hash-link" aria-label="Direct link to Expression" title="Direct link to Expression" translate="no">​</a></h4>
 <p>Parameters: <code>zoom</code></p>
 <hr>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rasterelevationtransition">rasterElevationTransition<a href="#rasterelevationtransition" class="hash-link" aria-label="Direct link to rasterElevationTransition" title="Direct link to rasterElevationTransition" translate="no">​</a></h3>
 <p>Name: <code>rasterElevationTransition</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-24">Description<a href="#description-24" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="description-25">Description<a href="#description-25" class="hash-link" aria-label="Direct link to Description" title="Direct link to Description" translate="no">​</a></h4>
 <p>The transition affecting any changes to this layer’s rasterElevation property.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-24">Type<a href="#type-24" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="type-25">Type<a href="#type-25" class="hash-link" aria-label="Direct link to Type" title="Direct link to Type" translate="no">​</a></h4>
 <p><code>{ duration, delay }</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-12">Units<a href="#units-12" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="units-13">Units<a href="#units-13" class="hash-link" aria-label="Direct link to Units" title="Direct link to Units" translate="no">​</a></h4>
 <p><code>milliseconds</code></p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-21">Default Value<a href="#default-value-21" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
-<p><code>{duration: 300, delay: 0}</code></p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/rnmapbox/maps/blob/main/src/components/RasterLayer.tsx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/components/RasterDemSource"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">RasterDemSource</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/components/RasterParticleLayer"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">RasterParticleLayer</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#props" class="table-of-contents__link toc-highlight">props</a><ul><li><a href="#id" class="table-of-contents__link toc-highlight">id</a></li><li><a href="#existing" class="table-of-contents__link toc-highlight">existing</a></li><li><a href="#sourceid" class="table-of-contents__link toc-highlight">sourceID</a></li><li><a href="#sourcelayerid" class="table-of-contents__link toc-highlight">sourceLayerID</a></li><li><a href="#abovelayerid" class="table-of-contents__link toc-highlight">aboveLayerID</a></li><li><a href="#belowlayerid" class="table-of-contents__link toc-highlight">belowLayerID</a></li><li><a href="#layerindex" class="table-of-contents__link toc-highlight">layerIndex</a></li><li><a href="#filter" class="table-of-contents__link toc-highlight">filter</a></li><li><a href="#minzoomlevel" class="table-of-contents__link toc-highlight">minZoomLevel</a></li><li><a href="#maxzoomlevel" class="table-of-contents__link toc-highlight">maxZoomLevel</a></li><li><a href="#slot" class="table-of-contents__link toc-highlight">slot</a></li><li><a href="#style" class="table-of-contents__link toc-highlight">style</a></li></ul></li><li><a href="#styles" class="table-of-contents__link toc-highlight">styles</a><ul><li><a href="#visibility" class="table-of-contents__link toc-highlight">visibility</a></li><li><a href="#rasteropacity" class="table-of-contents__link toc-highlight">rasterOpacity</a></li><li><a href="#rasteropacitytransition" class="table-of-contents__link toc-highlight">rasterOpacityTransition</a></li><li><a href="#rastercolor" class="table-of-contents__link toc-highlight">rasterColor</a></li><li><a href="#rastercolormix" class="table-of-contents__link toc-highlight">rasterColorMix</a></li><li><a href="#rastercolormixtransition" class="table-of-contents__link toc-highlight">rasterColorMixTransition</a></li><li><a href="#rastercolorrange" class="table-of-contents__link toc-highlight">rasterColorRange</a></li><li><a href="#rastercolorrangetransition" class="table-of-contents__link toc-highlight">rasterColorRangeTransition</a></li><li><a href="#rasterhuerotate" class="table-of-contents__link toc-highlight">rasterHueRotate</a></li><li><a href="#rasterhuerotatetransition" class="table-of-contents__link toc-highlight">rasterHueRotateTransition</a></li><li><a href="#rasterbrightnessmin" class="table-of-contents__link toc-highlight">rasterBrightnessMin</a></li><li><a href="#rasterbrightnessmintransition" class="table-of-contents__link toc-highlight">rasterBrightnessMinTransition</a></li><li><a href="#rasterbrightnessmax" class="table-of-contents__link toc-highlight">rasterBrightnessMax</a></li><li><a href="#rasterbrightnessmaxtransition" class="table-of-contents__link toc-highlight">rasterBrightnessMaxTransition</a></li><li><a href="#rastersaturation" class="table-of-contents__link toc-highlight">rasterSaturation</a></li><li><a href="#rastersaturationtransition" class="table-of-contents__link toc-highlight">rasterSaturationTransition</a></li><li><a href="#rastercontrast" class="table-of-contents__link toc-highlight">rasterContrast</a></li><li><a href="#rastercontrasttransition" class="table-of-contents__link toc-highlight">rasterContrastTransition</a></li><li><a href="#rasterresampling" class="table-of-contents__link toc-highlight">rasterResampling</a></li><li><a href="#rasterfadeduration" class="table-of-contents__link toc-highlight">rasterFadeDuration</a></li><li><a href="#rasteremissivestrength" class="table-of-contents__link toc-highlight">rasterEmissiveStrength</a></li><li><a href="#rasteremissivestrengthtransition" class="table-of-contents__link toc-highlight">rasterEmissiveStrengthTransition</a></li><li><a href="#rasterarrayband" class="table-of-contents__link toc-highlight">rasterArrayBand</a></li><li><a href="#rasterelevation" class="table-of-contents__link toc-highlight">rasterElevation</a></li><li><a href="#rasterelevationtransition" class="table-of-contents__link toc-highlight">rasterElevationTransition</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/examples">Examples</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/navigation/overview">Navigation</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/react-native+mapbox" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://discord.com/channels/1004826913229000704/1092426983696248893" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://twitter.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Gitter<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/rnmapbox/maps" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div></div></footer></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="default-value-22">Default Value<a href="#default-value-22" class="hash-link" aria-label="Direct link to Default Value" title="Direct link to Default Value" translate="no">​</a></h4>
+<p><code>{duration: 300, delay: 0}</code></p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/rnmapbox/maps/blob/main/src/components/RasterLayer.tsx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/components/RasterDemSource"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">RasterDemSource</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/components/RasterParticleLayer"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">RasterParticleLayer</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#props" class="table-of-contents__link toc-highlight">props</a><ul><li><a href="#id" class="table-of-contents__link toc-highlight">id</a></li><li><a href="#existing" class="table-of-contents__link toc-highlight">existing</a></li><li><a href="#sourceid" class="table-of-contents__link toc-highlight">sourceID</a></li><li><a href="#sourcelayerid" class="table-of-contents__link toc-highlight">sourceLayerID</a></li><li><a href="#abovelayerid" class="table-of-contents__link toc-highlight">aboveLayerID</a></li><li><a href="#belowlayerid" class="table-of-contents__link toc-highlight">belowLayerID</a></li><li><a href="#layerindex" class="table-of-contents__link toc-highlight">layerIndex</a></li><li><a href="#filter" class="table-of-contents__link toc-highlight">filter</a></li><li><a href="#minzoomlevel" class="table-of-contents__link toc-highlight">minZoomLevel</a></li><li><a href="#maxzoomlevel" class="table-of-contents__link toc-highlight">maxZoomLevel</a></li><li><a href="#slot" class="table-of-contents__link toc-highlight">slot</a></li><li><a href="#style" class="table-of-contents__link toc-highlight">style</a></li></ul></li><li><a href="#styles" class="table-of-contents__link toc-highlight">styles</a><ul><li><a href="#visibility" class="table-of-contents__link toc-highlight">visibility</a></li><li><a href="#rasteropacity" class="table-of-contents__link toc-highlight">rasterOpacity</a></li><li><a href="#rasteropacitytransition" class="table-of-contents__link toc-highlight">rasterOpacityTransition</a></li><li><a href="#rastercolor" class="table-of-contents__link toc-highlight">rasterColor</a></li><li><a href="#rastercolormix" class="table-of-contents__link toc-highlight">rasterColorMix</a></li><li><a href="#rastercolormixtransition" class="table-of-contents__link toc-highlight">rasterColorMixTransition</a></li><li><a href="#rastercolorrange" class="table-of-contents__link toc-highlight">rasterColorRange</a></li><li><a href="#rastercolorrangetransition" class="table-of-contents__link toc-highlight">rasterColorRangeTransition</a></li><li><a href="#rastercolorscale" class="table-of-contents__link toc-highlight">rasterColorScale</a></li><li><a href="#rasterhuerotate" class="table-of-contents__link toc-highlight">rasterHueRotate</a></li><li><a href="#rasterhuerotatetransition" class="table-of-contents__link toc-highlight">rasterHueRotateTransition</a></li><li><a href="#rasterbrightnessmin" class="table-of-contents__link toc-highlight">rasterBrightnessMin</a></li><li><a href="#rasterbrightnessmintransition" class="table-of-contents__link toc-highlight">rasterBrightnessMinTransition</a></li><li><a href="#rasterbrightnessmax" class="table-of-contents__link toc-highlight">rasterBrightnessMax</a></li><li><a href="#rasterbrightnessmaxtransition" class="table-of-contents__link toc-highlight">rasterBrightnessMaxTransition</a></li><li><a href="#rastersaturation" class="table-of-contents__link toc-highlight">rasterSaturation</a></li><li><a href="#rastersaturationtransition" class="table-of-contents__link toc-highlight">rasterSaturationTransition</a></li><li><a href="#rastercontrast" class="table-of-contents__link toc-highlight">rasterContrast</a></li><li><a href="#rastercontrasttransition" class="table-of-contents__link toc-highlight">rasterContrastTransition</a></li><li><a href="#rasterresampling" class="table-of-contents__link toc-highlight">rasterResampling</a></li><li><a href="#rasterfadeduration" class="table-of-contents__link toc-highlight">rasterFadeDuration</a></li><li><a href="#rasteremissivestrength" class="table-of-contents__link toc-highlight">rasterEmissiveStrength</a></li><li><a href="#rasteremissivestrengthtransition" class="table-of-contents__link toc-highlight">rasterEmissiveStrengthTransition</a></li><li><a href="#rasterarrayband" class="table-of-contents__link toc-highlight">rasterArrayBand</a></li><li><a href="#rasterelevation" class="table-of-contents__link toc-highlight">rasterElevation</a></li><li><a href="#rasterelevationtransition" class="table-of-contents__link toc-highlight">rasterElevationTransition</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/examples">Examples</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/navigation/overview">Navigation</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/react-native+mapbox" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://discord.com/channels/1004826913229000704/1092426983696248893" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://twitter.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Gitter<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/rnmapbox/maps" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div></div></footer></div>
 </body>
 </html>

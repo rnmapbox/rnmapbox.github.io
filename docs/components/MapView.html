@@ -11,8 +11,8 @@
 
 <link rel="search" type="application/opensearchdescription+xml" title="@rnmapbox/maps" href="/opensearch.xml">
 <meta name="google-site-verification" content="4d5BqkXr-_mwLPx8aDAONR6uA0d8v6oSPaVFPEn8KK0"><link rel="stylesheet" href="/assets/css/styles.a5aa6d04.css">
-<script src="/assets/js/runtime~main.27b245ff.js" defer="defer"></script>
-<script src="/assets/js/main.3cf36837.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.30e51ddb.js" defer="defer"></script>
+<script src="/assets/js/main.62cadd93.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -176,7 +176,8 @@ On iOS, setting both <code>doubleTapToZoomInEnabled</code> and <code>quickZoomEn
 <p><a class="" href="/docs/examples/Map/ShowRegionDidChange">Show Region Did Change</a></p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="onregionischanging">onRegionIsChanging<a href="#onregionischanging" class="hash-link" aria-label="Direct link to onRegionIsChanging" title="Direct link to onRegionIsChanging" translate="no">​</a></h3>
 <div class="language-tsx codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#FFFFFF;--prism-background-color:#282C34"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-tsx codeBlock_bY9V thin-scrollbar" style="color:#FFFFFF;background-color:#282C34"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#FFFFFF"><span class="token plain">func</span><br></div></code></pre></div></div>
-<p>This event is triggered whenever the currently displayed map region is changing.</p>
+<p>This event is triggered whenever the currently displayed map region is changing.
+<code>properties.isUserInteraction</code> is deprecated, use CameraGestureObserver#onCameraChanged to tell user gestures from programmatic camera changes.</p>
 <ul>
 <li class=""><code>feature</code>: <code>PointFeature</code>  - The geojson point feature at the camera center, properties contains zoomLevel, visibleBounds
 <em>signature:</em><code>(feature:GeoJSON.Feature) =&amp;gt; void</code></li>
